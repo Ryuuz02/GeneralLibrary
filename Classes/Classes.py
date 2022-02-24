@@ -1,5 +1,6 @@
 # imports shuffle to shuffle the deck
 from random import shuffle
+from colorama import Back
 
 
 # Deck class, for cards
@@ -28,6 +29,7 @@ class deck:
             shuffle(self.cards)
 
 
+# Class for cards in a deck
 class card:
     def __init__(self, suit, number):
         self.suit = suit
@@ -38,9 +40,49 @@ class card:
         return str(self.number) + " of " + self.suit
 
 
-# Makes a new deck
-test_deck = deck()
-# Shuffles the deck
-test_deck.shuffle_deck()
-# Prints the deck
-test_deck.print_deck()
+# Class for a chessboard, preset height/width of 8, but can be changed
+class checkerboard:
+    def __init__(self, height=8, width=8):
+        self.height = height
+        self.width = width
+        self.board = []
+        self.create_board()
+
+    # Function to make the board, alternates each spots colors between white/black
+    def create_board(self):
+        self.board = []
+        for row in range(0, self.height):
+            self.board.append([])
+            for col in range(0, self.width):
+                if (row + col) % 2 == 0:
+                    self.board[row].append(spot("white"))
+                else:
+                    self.board[row].append(spot("black"))
+
+    # Function to print out the board
+    def print_board(self):
+        for row in range(0, self.height):
+            print((Back.RESET + "").join(self.row_to_str_lst(row)) + Back.RESET)
+
+    # Converts an entire row to a list of strings
+    def row_to_str_lst(self, row_num):
+        convert_lst = []
+        for space in self.board[row_num]:
+            convert_lst.append(space.symbol)
+        return convert_lst
+
+
+# Class for a space in the board
+class spot:
+    def __init__(self, color, symbol="  "):
+        color = color.lower()
+        # Depending on what color it needs to be, changes the background to match
+        if color == "white":
+            self.symbol = Back.WHITE + symbol
+        elif color == "black":
+            self.symbol = Back.BLACK + symbol
+
+
+# Example of usage
+test_board = checkerboard()
+test_board.print_board()
