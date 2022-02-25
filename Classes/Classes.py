@@ -1,6 +1,6 @@
 # imports shuffle to shuffle the deck
 from random import shuffle
-from colorama import Back
+from colorama import Back, Fore
 
 
 # Deck class, for cards
@@ -49,15 +49,52 @@ class checkerboard:
         self.create_board()
 
     # Function to make the board, alternates each spots colors between white/black
-    def create_board(self):
+    def create_board(self, boardtype="empty"):
         self.board = []
         for row in range(0, self.height):
             self.board.append([])
             for col in range(0, self.width):
-                if (row + col) % 2 == 0:
-                    self.board[row].append(spot("white"))
-                else:
-                    self.board[row].append(spot("black"))
+                if boardtype == "checkers":
+                    if (row + col) % 2 == 0:
+                        self.board[row].append(spot("white"))
+                    elif row <= 2:
+                        self.board[row].append(spot("black", Fore.WHITE + " ● "))
+                    elif row >= 5:
+                        self.board[row].append(spot("black", Fore.RED + " ● "))
+                    else:
+                        self.board[row].append(spot("black"))
+                elif boardtype == "chess":
+                    chess_layout = [" R ", " N ", " B ", " Q ", " K ", " B ", " N ", " R "]
+                    if row == 0:
+                        if (row + col) % 2 == 0:
+                            self.board[row].append(spot("white", Fore.RED + chess_layout[col]))
+                        else:
+                            self.board[row].append(spot("black", Fore.RED + chess_layout[col]))
+                    elif row == 1:
+                        if (row + col) % 2 == 0:
+                            self.board[row].append(spot("white", Fore.RED + " P "))
+                        else:
+                            self.board[row].append(spot("black", Fore.RED + " P "))
+                    elif row == 6:
+                        if (row + col) % 2 == 0:
+                            self.board[row].append(spot("white", Fore.CYAN + " P "))
+                        else:
+                            self.board[row].append(spot("black", Fore.CYAN + " P "))
+                    elif row == 7:
+                        if (row + col) % 2 == 0:
+                            self.board[row].append(spot("white", Fore.CYAN + chess_layout[col]))
+                        else:
+                            self.board[row].append(spot("black", Fore.CYAN + chess_layout[col]))
+                    else:
+                        if (row + col) % 2 == 0:
+                            self.board[row].append(spot("white"))
+                        else:
+                            self.board[row].append(spot("black"))
+                elif boardtype == "empty":
+                    if (row + col) % 2 == 0:
+                        self.board[row].append(spot("white"))
+                    else:
+                        self.board[row].append(spot("black"))
 
     # Function to print out the board
     def print_board(self):
@@ -74,7 +111,7 @@ class checkerboard:
 
 # Class for a space in the board
 class spot:
-    def __init__(self, color, symbol="  "):
+    def __init__(self, color, symbol=Fore.WHITE + "   "):
         color = color.lower()
         # Depending on what color it needs to be, changes the background to match
         if color == "white":
@@ -85,4 +122,5 @@ class spot:
 
 # Example of usage
 test_board = checkerboard()
+test_board.create_board("chess")
 test_board.print_board()
