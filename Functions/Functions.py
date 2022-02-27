@@ -25,3 +25,11 @@ def check_even(num):
         return False
 
 
+# Converts two lists into a dictionary
+def two_list_to_dict(lst1, lst2):
+    end_dict = {}
+    for entry in range(len(lst1)):
+        end_dict[lst1[entry]] = lst2[entry]
+    return end_dict
+
+
