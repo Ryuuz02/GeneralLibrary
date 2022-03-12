@@ -120,7 +120,98 @@ class spot:
             self.symbol = Back.BLACK + symbol
 
 
+class linked_lst:
+    class node:
+        def __init__(self, val, prev, nex):
+            self.data = [prev, val, nex]
+
+        def __getitem__(self, idx):
+            return self.data[idx]
+
+        def __setitem__(self, idx, val):
+            self.data[idx] = val
+
+        def next(self):
+            return self.data[2]
+
+        def prev(self):
+            return self.data[0]
+
+        def val(self):
+            return self.data[1]
+
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    def __len__(self):
+        return self.size
+
+    def append(self, val):
+        if len(self) not in (0, 1):
+            new_node = self.node(val, self.tail, self.head)
+            self.tail[2] = new_node
+            self.tail = new_node
+            self.head[0] = self.tail
+        elif len(self) == 0:
+            self.head = self.tail = self.node(val, None, None)
+        else:
+            self.tail = self.node(val, self.head, self.head)
+            self.head[0] = self.head[2] = self.tail
+        self.size += 1
+
+    def prepend(self, val):
+        if len(self) not in (0, 1):
+            new_node = self.node(val, self.tail, self.head)
+            self.head[0] = new_node
+            self.head = new_node
+            self.tail[2] = self.head
+        elif len(self) == 0:
+            self.append(val)
+        else:
+            self.size += 1
+            self.head = self.node(val, self.tail, self.tail)
+            self.tail[0] = self.tail[2] = self.head
+
+    def __getitem__(self, idx):
+        try:
+            return self.data[idx][1]
+        except IndexError:
+            print("Index out of range")
+            return None
+
+    def __str__(self):
+        str_lst = [str(self.head.val())]
+        iterated_node = self.head.next()
+        while iterated_node != self.head:
+            str_lst.append(str(iterated_node.val()))
+            iterated_node = iterated_node.next()
+        return str(str_lst)
+
+    def __repr__(self):
+        lst_repr = [self.head.val()]
+        iterated_node = self.head.next()
+        while iterated_node != self.head:
+            lst_repr.append(iterated_node.val())
+            iterated_node = iterated_node.next()
+        return lst_repr
+
+
+"""
 # Example of usage
 test_board = checkerboard()
 test_board.create_board("chess")
 test_board.print_board()
+"""
+
+test_lst = linked_lst()
+test_lst.prepend(2)
+test_lst.prepend(1)
+test_lst.append(3)
+test_lst.prepend(0)
+test_lst.append(4)
+test_lst.append(5)
+test_lst.prepend(-1)
+test_lst.append(6)
+print(test_lst)

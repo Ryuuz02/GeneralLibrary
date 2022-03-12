@@ -1,4 +1,9 @@
 # Function to convert a string to a yes or no question, then returns if it is true or not
+import timeit
+
+import numpy as numpy
+
+
 def question(question_str):
     user_input = input(question_str + "? Y/N\n").lower()
     if user_input == "y":
@@ -31,5 +36,6 @@ def two_list_to_dict(lst1, lst2):
     for entry in range(len(lst1)):
         end_dict[lst1[entry]] = lst2[entry]
     return end_dict
+
 
 
