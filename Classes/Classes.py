@@ -198,6 +198,43 @@ class linked_lst:
         return lst_repr
 
 
+class animal:
+    def __init__(self,  animal_class, intelligence="Simple", population="Safe", habitat="Land", diet="Herbivore", egg_laying=False, legs=4, flight=False):
+        self.aclass = animal_class
+        self.habitat = habitat
+        self.intelligence = intelligence
+        self.population = population
+        self.diet = diet
+        self.egg_laying = egg_laying
+        self.legs = legs
+        self.flight = flight
+
+
+class bird(animal):
+    def __init__(self, intelligence="Simple",  population="safe",habitat="Air", legs=2, diet="herbivore", egg_laying=True, flight=True):
+        super().__init__("Bird", intelligence,  population, habitat, diet, egg_laying, legs, flight)
+
+
+class mammal(animal):
+    def __init__(self, intelligence="Simple", population="safe", habitat="Land", legs=4, diet="omnivore", egg_laying=False, flight=False):
+        super().__init__("Mammal", intelligence, population, habitat, diet, egg_laying, legs, flight)
+
+
+class fish(animal):
+    def __init__(self, intelligence="Simple", population="safe", habitat="Water", legs=0, diet="carnivore", egg_laying=True, flight=False):
+        super().__init__("Fish", intelligence, population, habitat, diet, egg_laying, legs, flight)
+
+
+class amphibian(animal):
+    def __init__(self, intelligence="Simple", population="safe", habitat="Water", legs=2, diet="carnivore", egg_laying=True, flight=False):
+        super().__init__("Bird", intelligence, population, habitat, diet, egg_laying, legs, flight)
+
+
+class reptile(animal):
+    def __init__(self, intelligence="Simple", population="safe", habitat="Land", legs=4, diet="carnivore", egg_laying=True, flight=False):
+        super().__init__("Reptile", intelligence, population, habitat, diet, egg_laying, legs, flight)
+
+
 """
 # Example of usage
 test_board = checkerboard()
@@ -205,6 +242,7 @@ test_board.create_board("chess")
 test_board.print_board()
 """
 
+"""
 test_lst = linked_lst()
 test_lst.prepend(2)
 test_lst.prepend(1)
@@ -215,3 +253,8 @@ test_lst.append(5)
 test_lst.prepend(-1)
 test_lst.append(6)
 print(test_lst)
+"""
+
+ostrich = bird(flight=False)
+print(ostrich.population)
+
